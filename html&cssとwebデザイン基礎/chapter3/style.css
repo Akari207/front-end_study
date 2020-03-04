@@ -1,0 +1,256 @@
+@charset "UTF-8";
+
+/*
+   chapter3-4
+   * 単位を指定 (px % rem)
+      rem ルート要素に指定されたサイズを基準とした単位
+
+   chapter3-5
+   * フォントの指定 `font-family`
+      , で複数指定ができ、先頭から優先して適応されていく。
+      1webサイトに3種類ぐらい
+   * フォントの太さを変更 `font-weight`
+      標準:normal 太字:bold lighter:１段階補足 bolder:１段階太く
+   * 行の高さを変更する `line-height`
+      1.5 ~ 1.9がおすすめ
+   * 文章を揃える text-align
+      左揃え:left 右揃え:light 中央揃え:center 両端揃え:justify
+   * background-repeat
+      repeat: 縦横ともに繰り返し表示
+      repeat-x: 横方向に繰り返して表示
+      repeat-y: 縦方向に繰り返して表示
+      no-repeat: 繰り返さない
+   * background-position
+      (px, rem, %)
+      横方向 左:left 中央:center 右:right
+      縦方向 上:top 中央:center 下:bottom
+   * background関連は一括指定が可能(例) 
+   div {
+      background: #70a2dc url(images/aaa.png) no-repeat center bottom/cover;
+   }
+   * 幅と高さを指定する(px, rem, % auto)
+   * 相対単位 ブラウザーの表示領域や他の要素に指定したサイズを基準とする。
+      * % 親要素を基準とした時の割合単位
+      * em 親要素のサイズを基準にした単位 フォントサイズに指定されることが多い。
+      * rem ルート要素のサイズを基準に計算される単位
+      * vw(viewport width) ビューポート[ブラウザーでwebサイトを閲覧している時の表示領域]の幅
+      * vh(viewport height) ビューポートの高さ
+   * 絶対単位 ブラウザーの表示領域や親要素のサイズに影響されることなく、指定したサイズで表示される単位
+      * px 一般的な絶対単位
+
+   * 余白の調整
+      * margin ブロック1からブロック2までの距離
+      * padding ブロック内コンテンツまでの距離
+      * border merginとpaddingの間の枠線
+   ＊margin
+      margin-top,margin-left,margin-bottom,margin-right または同順で一括指定
+      四辺全て margin: 10px; 上下左右 margin: 10px 20px;
+      上 左右 下 margin: 10px 20px 30px; 上 右 下 左: margin: 10px 20px 30px 40px;
+   * padding
+      padding-top,padding-left,padding-bottom,padding-right または同順で一括指定
+      四辺全て padding: 10px; 上下左右 padding: 10px 20px;
+      上 左右 下 padding: 10px 20px 30px; 上 右 下 左: padding: 10px 20px 30px 40px;
+      枠は文字サイズの1 ~ 1.5倍でとるのが良い
+   * border
+      四辺全て: border 上:border-top 下:border-bottom 左:border-left 右:border-right
+      * border-width
+         細い線: thin, 普通の太さ: medium, 太い線: thick
+      * border-style (初期値はnone)
+         none: 線を非表示 solid: 1本の実践 double: 2本の実践
+         dashed: 破線 dotted: 点線 groove: 立体的な谷型の線
+         ridge: 立体的な山形の線 inset: 囲まれた部分が凹んでみえる立体的な線
+         outset: 囲まれた部分が浮き上がって見える立体的な線
+      * border-color
+         カラーコード RGB値 色の名前
+
+   chapter3-12 リストの装飾 
+   * リストマーカの種類 list-style-type
+      none: リストマーカ非表示 disc: 黒丸 circle: 白丸
+      square: 黒四角 decimal: 数字 decimal-leading-zero: 0のつけた数字
+      lower-roman: 小文字のローマ数字 upper-roman: 大文字のローマ数字
+      cjk-ideographic: 漢数字 hiragana: ひらがな katakana: カタカナ
+      hiragana-iroha: ひらがなのいろは katakana-iroha: かたかなのいろは
+      lower-alpha, lower-latin 小文字のアルファベット
+      upper-alpha, upper-latin 大文字のアルファベット
+      lower-greek 小文字の古典的なギリシャ文字
+      hebrew ヘブライ数字
+      armenian アルメニア数字
+      georgian グルジア数字
+   * リストマーカの表示位置 list-style-position
+      outside: ボックスの外側に表示
+      inside ボックスの内側に表示
+   * リストマーカに使用する画像 list-style-image
+
+   chapter3-13 クラス(class)とID(id)
+   優先順位 class < id
+
+   chapter3-14 レイアウトを組もう
+   Flexbox(Flexible Box Layout Module)で横並びにしよう
+   親要素に `display: flex` を記述すれば要素の並び方をカスタマイズできる。
+   * flex-direction 初期値: row
+      row: 子要素を左から右に配置 row-reverse: 子要素を右から左に配置
+      column: 子要素を上から下に配置 column-reverse 子要素を下から上に配置
+   * flex-wrap 1行か複数行に並べるか 初期値: nowrap
+      nowrap: 子要素を折り返し、1行に並べる
+      wrap: 子要素を折り返し、複数行に上から下へ並べる
+      wrap-reverse 子要素を折り返し、複数行に下から上へ並べる
+   * justify-content 水平方向の揃へ 初期値: flex-start
+      flex-start: 行の開始位置から配置。左揃へ
+      flex-end: 行末から配置 右揃へ
+      center: 中央揃へ
+      space-between: 最初と最後の子要素を両端に配置し、残りの要素は均等に間隔を空けて配置
+      space-around: 両端の子要素も含め、均等に間隔を空けて配置
+   * align-items 親要素に空きスペースがあった場合、子要素を垂直方向のどの位置に配置するかを指定
+      stretch(初期値): 親要素の高さ、またはコンテンツの一番多い子要素の高さに合わせて広げて配置
+      flex-start: 親要素の開始位置から配置。上揃へ
+      flex-end: 親要素の終点から配置。下揃へ
+      center: 中央揃へ
+      baseline: ベースラインへ揃える
+   * align-content 子要素が複数行に渡った場合の垂直方向揃へを指定 
+   `flex-wrap:nowrap` が適応されていると子要素が1行になるので、無効になる
+      stretch: 親要素の高さに合わて、広げて配置。
+      flex-start: 親要素の開始位置から配置。上揃へ
+      flex-end: 親要素の終点から配置。下揃へ
+      center: 中央揃へ
+      space-between: 最初と最後の子要素を上下の端に配置し、残りの要素は均等に間隔を空けて配置
+      space-around: 上下端にある子要素も含め、均等に間隔を空けて配置
+   * cssグリッドでタイル型に並べる
+      同じ大きさのボックスを等しい間隔で並べていくレイアウト。親要素、子要素が必要
+      * グリッドアイテム(子要素)の横幅 grid-template-columns
+      * グリッドアイテム(子要素)同士の余白　gap
+      * グリッドアイテム(子要素)の高さ grid-tempalte-rows
+   
+   chapter3-15 デファルトCSSのリセットをする
+      読み込みの順番に気をつける。適応したいcssの上に記述しないと上書きされるので注意
+
+
+
+
+
+
+
+
+*/
+/* ルート要素 */
+html {
+   font-size: 100%;
+}
+
+body {
+   /* background image colorの指定 */
+   background-color: #fffeee;
+   background-image: url(images/sample.png);
+   background-repeat: no-repeat;
+   /*background-size: contain;*/
+   /*height: 100vh;*/ /*要素の高さを指定*/
+   background-position: center top;
+}
+
+.container {
+   display: grid;
+   grid-template-columns: 200px 200px 200px;
+   gap: 10px;
+   grid-template-rows: 200px 200px;
+
+}
+
+.item {
+   background: #0bd;
+   color: #fff;
+   padding: 10px;
+
+
+
+}
+
+
+
+/*
+.container {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-content: space-between;
+   align-items: center;
+   height: 100vh;
+   background-color: black;
+}
+*/
+/*
+.item {
+   background-color: #0bd;
+   color: #fff;
+   margin: 10px;
+   padding: 10px;
+}
+*/
+
+
+ul {
+   /*
+   list-style: disc;
+   list-style-position: outside;
+   */
+   list-style: disc outside;
+}
+
+ol {
+   list-style: circle;
+   list-style-position: inside;
+}
+
+.blue {
+   color: #0bd;
+}
+
+#orange {
+   color: orange;
+}
+
+
+
+
+
+/* セレクタ */
+h1 {
+   /* プロパティ: 値 */
+   color: #0db;
+   font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+p {
+   font-size: 1rem;
+   text-align: justify;
+   /*
+   border-width: 1px;
+   border-style: solid;
+   border-color: tomato;
+   */
+   border-bottom: 2px solid #0bd;
+}
+
+
+
+/*div {*/
+   /*background: yellow;*/
+   /* width: 50%; */
+   /* height: 50%; */
+   /* margin: 30px 0 0 100px;*/
+   /* padding: 40px; */
+   /*
+   border-width: 4px;
+   border-style: double dotted solid ridge;
+   border-color: tan #0bd tomato #000;
+   */
+   /*border: 5px dotted tomato;*/
+/*}*/
+
+
+/* 要素の要素を指定する */
+div p {
+   color: red;
+   font-family: "arial", "Impact";
+   font-weight: bold;
+   line-height: 1.5;
+}
